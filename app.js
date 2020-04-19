@@ -3,6 +3,7 @@ var path = require('path');
 var morgan = require('morgan');
 var express = require('express');
 var bodyParser = require('body-parser');
+const PORT = process.env.PORT || 5000
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.get("/", function(req, res){
 app.post("/" ,function(req, res){
     return res.render("result",{username: req.body.username, message: req.body.message})
 });
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-var server = http.createServer(app);
-server.listen(3000);
+#var server = http.createServer(app);
+#server.listen(3000);
