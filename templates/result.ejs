@@ -1,4 +1,26 @@
 <!DOCTYPE html>
+
+<%
+    const express = require('express');
+    const router = express.Router();
+    const db = require('../db/index');
+
+    router.get('/', (req, res, next) => {
+        db.pool.connect((err, client) => {
+          if (err) {
+            console.log(err);
+          } else {
+            client.query('SELECT * FROM t_inspection', (err, result) => {
+              console.log(result.rows);
+            });
+          }
+        });
+        res.render('index', {
+          title: 'hello express',
+        });
+      });
+%>
+
 <html>
     <head>
         <meta charset="utf-8"/>
