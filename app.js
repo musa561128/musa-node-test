@@ -43,13 +43,14 @@ app.post("/" ,function(req, res){
         user: process.env.ENV_USER,
         port: 5432,
         password: process.env.ENV_PASSWORD,
+        ssl: true
     });
 
 
     //db.pool.connect((err, client) => {
     pool.connect((err, client) => {
         if (err) {
-        //console.log(err);
+        console.log(err);
         res.send(err);
         } else {
         client.query('SELECT * FROM t_inspection', (err, result) => {
