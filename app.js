@@ -43,7 +43,6 @@ app.post("/" ,function(req, res){
         user: process.env.ENV_USER,
         port: 5432,
         password: process.env.ENV_PASSWORD,
-        ssl: true
     });
 
 
