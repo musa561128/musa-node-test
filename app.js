@@ -3,7 +3,6 @@ var path = require('path');
 var morgan = require('morgan');
 var express = require('express');
 var bodyParser = require('body-parser');
-const db = require('../db/index');
 const PORT = process.env.PORT || 5000
 
 var app = express();
@@ -29,8 +28,39 @@ app.get("/", function(req, res){
 
 //トップページからpost時の処理
 app.post("/" ,function(req, res){
+    console.log(req.body);
+    //res.send("Received POST Data!");
+
+    const express = require('express');
+    //const db = require('./db/db.js');
+
+    const pg = require('pg');
+    require('dotenv').config();
+
+    let pool = new pg.Pool ({
+        host: process.env.ENV_HOST,
+        database: process.env.ENV_DB,
+        user: process.env.ENV_USER,
+        port: 5432,
+        password: process.env.ENV_PASSWORD,
+    });
+
+
+    //db.pool.connect((err, client) => {
+    pool.connect((err, client) => {
+        if (err) {
+        //console.log(err);
+        res.send(err);
+        } else {
+        client.query('SELECT * FROM t_inspection', (err, result) => {
+            console.log(result.rows);
+            res.send(result.rows)
+        });
+        }
+    });
+
     //result.ejsファイルにフォームから取得したbody.usernameとbody.messageをパラメータとして渡す
-    return res.render("result",{username: req.body.username, message: req.body.message})
+//    return res.render("result",{username: req.body.username, message: req.body.message})
 });
 
 //WEBサーバ起動（PORTは5000）
