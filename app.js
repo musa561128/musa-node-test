@@ -40,13 +40,13 @@ app.post("/" ,function(req, res){
         client.query('SELECT * FROM t_inspection', (err, result) => {
             console.log(result.rows);
             console.log(result.rows[1].inspection_date);
-            // res.send(result.rows)
+            res.send(result.rows)
         });
         }
     });
 
     //result.ejsファイルにフォームから取得したbody.usernameとbody.messageをパラメータとして渡す
-    return res.render("result",{username: req.body.username, message: req.body.message});
+    //return res.render("result",{username: req.body.username, message: req.body.message});
 });
 
 //WEBサーバ起動（PORTは5000）
