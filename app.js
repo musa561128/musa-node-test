@@ -10,14 +10,20 @@ var app = express();
 //ログ出力
 app.use(morgan("combined"));
 
+///node_modules/jquery/dist/フォルダを仮想パス「/jquery」でアクセス可能とする
+app.use("/jquery", express.static(__dirname + "/node_modules/jquery/dist/"));
+
 //staticフォルダを仮想パス「/static」でアクセス可能とする
 app.use("/static", express.static(path.join(__dirname, "static")));
+
+//publicフォルダを仮想パス「/public」でアクセス可能とする
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 //body-parserミドルウェアをExpressにセット（Formから）取得した値を使用するため）
 app.use(bodyParser.urlencoded({extended: false}));
 
-//templatesフォルダ以下で、ejsファイルを利用するための定義
-app.set('views', path.join(__dirname, 'templates'));
+//viewsフォルダ以下で、ejsファイルを利用するための定義
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //トップページアクセス時の処理
